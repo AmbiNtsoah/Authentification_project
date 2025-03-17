@@ -11,6 +11,7 @@ import frame.SignUpFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -59,12 +60,13 @@ public class Frames extends JFrame {
 		
 		JButton connexionButton = new JButton("connexion"); /** Boutton qui pour se connecter*/
 		connexionButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		connexionButton.addActionListener(event -> connect());
 		
 		JLabel redirectionLabel = new JLabel("Pas encore de comptes? Inscris-toi ici");
 		redirectionLabel.setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		
 		JButton signUpButton = new JButton("S'inscrire"); /** Boutton pour être redirigé vers l'interface d'inscription */
-		signUpButton.addActionListener(event -> redirectSignUp());
+		signUpButton.addActionListener(event -> redirectSignUp()); /** Ecoute les évènements sur le boutton*/
 		signUpButton.setFont(new Font("Segoe UI", Font.PLAIN, 10));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -115,6 +117,17 @@ public class Frames extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 	
+	/**
+	 * Methode permettant à l'utilisateur de se connecter
+	 * */
+	private void connect() {
+		String userLogin = loginUserField.getText();
+		String userPassword = new String(passwordField.getPassword());
+		
+		if (userLogin.isEmpty() || userPassword.isEmpty()) {
+			JOptionPane.showMessageDialog(this, "Veuillez remplir tous les champs !", "Erreur", JOptionPane.ERROR_MESSAGE);
+		}
+	}
 	
 	/**
 	 * Methode pour rediriger l'utilisateur à s'inscrire avant de se connecter

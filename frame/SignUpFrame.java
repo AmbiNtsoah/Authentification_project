@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JPasswordField;
@@ -25,18 +26,6 @@ public class SignUpFrame extends JFrame {
 	private JPasswordField createPassword;
 	private JTextField loginUser;
 
-	/** public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SignUpFrame frame = new SignUpFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	} */
 
 	/**
 	 * Constructeur qui permet de créer notre interfce utilisateur pour s'inscrire
@@ -77,13 +66,14 @@ public class SignUpFrame extends JFrame {
 		
 		JButton signUpButton = new JButton("S'inscrire");
 		signUpButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		signUpButton.addActionListener(event -> signingUp()); /** Boutton pour permettre l'inscription d'un nouveau user */
 		
 		JLabel redirectLoginLabel = new JLabel("Déjà un compte ?");
 		redirectLoginLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		redirectLoginLabel.setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		
-		JButton redirectLoginButton = new JButton("connexion");
-		redirectLoginButton.addActionListener(event -> redirectLogin());
+		JButton redirectLoginButton = new JButton("connexion"); /** Boutton pour être redirigé vers l'interface de connexion */
+		redirectLoginButton.addActionListener(event -> redirectLogin()); /** Ecoute les évènements sur le boutton*/
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -142,6 +132,30 @@ public class SignUpFrame extends JFrame {
 					.addContainerGap(144, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
+	}
+	
+	/**
+	 * Inscrire le nouveau utilisateur
+	 * */
+	private void signingUp() {
+		String emailUser = loginUser.getText();
+		String createPasswordUser = new String(createPassword.getPassword());
+		String confirmPasswordUser = new String(confirmPassword.getPassword());
+		
+		if (emailUser.isEmpty() || createPasswordUser.isEmpty() || confirmPasswordUser.isEmpty()) {
+			JOptionPane.showMessageDialog(this, "Veuillez remplir tous les champs !", "Erreur", JOptionPane.ERROR_MESSAGE);
+		}
+		
+		if (!confirmPasswordUser.equals(createPasswordUser)) {
+			JOptionPane.showMessageDialog(this, "Les mots de passe ne sont pas identiques !", "Erreur", JOptionPane.ERROR_MESSAGE);
+		}
+		
+		try {
+			
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e);
+		}
+		
 	}
 	
 	/**

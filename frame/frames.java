@@ -1,10 +1,13 @@
-package frame; /** Package qui contient les éléments sur l'interface graphique */
+package frame; /** Package qui contient les éléments sur l'interface graphique. */
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import frame.SignUpFrame;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -15,19 +18,19 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
 /** 
- * Classe pour consrtuire l'interface utilisateur
+ * Classe pour consrtuire l'interface utilisateur.
  * */
-public class frames extends JFrame {
-
+public class Frames extends JFrame {
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField loginUserField;
 	private JPasswordField passwordField;
 
 	/**
-	 * Constructeur qui permet de créer notre interfce utilisateur
+	 * Constructeur qui permet de créer notre interfce utilisateur pour se connecter.
 	 */
-	public frames() {
+	public Frames() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 473);
 		contentPane = new JPanel();
@@ -54,13 +57,14 @@ public class frames extends JFrame {
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		
-		JButton connexionButton = new JButton("connexion");
+		JButton connexionButton = new JButton("connexion"); /** Boutton qui pour se connecter*/
 		connexionButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		
 		JLabel redirectionLabel = new JLabel("Pas encore de comptes? Inscris-toi ici");
 		redirectionLabel.setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		
-		JButton signUpButton = new JButton("S'inscrire");
+		JButton signUpButton = new JButton("S'inscrire"); /** Boutton pour être redirigé vers l'interface d'inscription */
+		signUpButton.addActionListener(event -> redirectSignUp());
 		signUpButton.setFont(new Font("Segoe UI", Font.PLAIN, 10));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -109,5 +113,14 @@ public class frames extends JFrame {
 					.addContainerGap(191, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
+	}
+	
+	
+	/**
+	 * Methode pour rediriger l'utilisateur à s'inscrire avant de se connecter
+	 * */
+	private void redirectSignUp() {
+		new SignUpFrame().setVisible(true);
+		this.setVisible(false);
 	}
 }
